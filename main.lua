@@ -58,7 +58,7 @@ function love.keypressed(key)
 
     if key == 'escape' then
         love.event.quit()
-    elseif key == 'enter' or key == 'return' then
+    elseif key == 'r' then
         gStateMachine:change('play')
     end
 end
