@@ -28,13 +28,13 @@ function Tile:getColor(color)
     end
 end
 
-function Tile:render(x, y)
+function Tile:render(boardX, boardY)
 
     -- draw shadow
     love.graphics.setColor(34/255, 32/255, 52/255, 255/255)
-    love.graphics.draw(gTextures['pieces'], gFrames['tiles'][self.colorIndex], self.x + x + 2, self.y + y + 2)
+    love.graphics.draw(gTextures['pieces'], gFrames['tiles'][self.colorIndex], self.x + boardX + 2, self.y + boardY + 2)
 
     -- draw tile itself
     love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
-    love.graphics.draw(gTextures['pieces'], gFrames['tiles'][self.colorIndex], self.x + x, self.y + y)
+    love.graphics.draw(gTextures['pieces'], gFrames['tiles'][self.colorIndex], self.x + boardX, self.y + boardY)
 end

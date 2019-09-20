@@ -40,6 +40,7 @@ function love.load()
 
     love.keyboard.keysPressed = {}
     love.mouse.buttonPressed = {}
+    love.mouse.dragEvent = {}
 end
 
 function love.resize(w, h)
@@ -51,6 +52,13 @@ function love.update(dt)
     gStateMachine:update(dt)
     love.keyboard.keysPressed = {}
     love.mouse.buttonPressed = {}
+
+    -- clear dragging events only once over
+    if #love.mouse.dragEvent > 0 then
+        if love.mouse.dragEvent[1].isOver == true then
+            love.mouse.dragEvent = {}
+        end
+    end
 end
 
 function love.keypressed(key)
@@ -72,6 +80,22 @@ function love.mousepressed(x, y, button, istouch)
 
     if mx ~= nil and my ~= nil then
         love.mouse.buttonPressed[button] = { x = mx, y = my }
+        love.mouse.dragEvent[button] = { startX = mx, startY = my, isOver = false }
+    end
+end
+
+function love.mousereleased(x, y, button, istouch)
+    mx, my = push:toGame(x, y)
+
+    if mx ~= nil and my ~= nil then
+        local event = love.mouse.dragEvent[button]
+        -- check if event is not nil
+        if event ~= nil then
+            event.endX = mx
+            event.endY = my
+            event.isOver = true
+            love.mouse.dragEvent[button] = event
+        end
     end
 end
 
