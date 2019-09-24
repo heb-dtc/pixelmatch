@@ -14,11 +14,17 @@ require 'src/StateMachine'
 require 'src/Board'
 require 'src/Tile'
 
+require 'src/ui/Text'
+require 'src/ui/TextBox'
+
 require 'src/states/BaseState'
 require 'src/states/PlayState'
 
 gTextures = {
-    ['pieces'] = love.graphics.newImage('assets/match3.png')
+    ['pieces'] = love.graphics.newImage('assets/match3.png'),
+    ['moves_container'] = love.graphics.newImage('assets/moves_container.png'),
+    ['score_container'] = love.graphics.newImage('assets/score_container.png'),
+    ['score_target_container'] = love.graphics.newImage('assets/score_target_container.png'),
 }
 
 gFrames = {

@@ -4,6 +4,25 @@ function PlayState:init()
     self.target = 10000
     self.moves = 15
     self.score = 0
+
+    self.scoreBox = TextBox {
+        x = 0,
+        y = VIRTUAL_HEIGHT - 32,
+        texture = 'score_target_container',
+        font = largeFont
+    }
+    self.movesBox = TextBox {
+        x = 0,
+        y = 12,
+        texture = 'moves_container',
+        font = smallFont
+    }
+    self.scoreTargetBox = TextBox {
+        x = VIRTUAL_WIDTH - 80,
+        y = 12,
+        texture = 'score_container',
+        font = largeFont
+    }
 end
 
 function PlayState:enter(params)
@@ -117,12 +136,9 @@ end
 function PlayState:render()
     love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
 
-    love.graphics.setFont(titleFont)
-    love.graphics.print(self.target, 90, 5)
-
-    love.graphics.setFont(largeFont)
-    love.graphics.print(self.moves, 32 + 4, self.board.y + (ROW_NUMBER * TILE_SIZE) + 4)
-    love.graphics.print(self.score, VIRTUAL_WIDTH - 42, self.board.y + (ROW_NUMBER * TILE_SIZE) + 4)
+    self.movesBox:render(self.moves)
+    self.scoreTargetBox:render(self.target)
+    self.scoreBox:render(self.score)
 
     self.board:render()
 end
