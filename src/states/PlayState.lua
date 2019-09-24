@@ -118,7 +118,7 @@ function PlayState:render()
     love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
 
     love.graphics.setFont(titleFont)
-    love.graphics.print(self.target, VIRTUAL_WIDTH / 2 - 90, 5)
+    love.graphics.print(self.target, 90, 5)
 
     love.graphics.setFont(largeFont)
     love.graphics.print(self.moves, 32 + 4, self.board.y + (ROW_NUMBER * TILE_SIZE) + 4)

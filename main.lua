@@ -15,21 +15,26 @@ function love.load()
 
     -- TODO extract to some AppSettingsConfigurator class
     local settings
+    local screenWidth, screenHeight = love.window.getDesktopDimensions()
     if love.system.getOS() == 'iOS' or love.system.getOS() == 'Android' then
         settings = {
-            fullscreen = true,
-            resizable = true,
-            vsync = true
+            fullscreen = false,
+            resizable = false,
+            vsync = true,
+            highdpi = true
         }
+        screenHeight, screenWidth = love.window.getDesktopDimensions()
+        print(screenWidth, screenHeight)
     else
         settings = {
             fullscreen = false,
             resizable = true,
             vsync = true
         }
+        screenHeight, screenWidth = WINDOW_HEIGHT, WINDOW_WIDTH
     end
 
-    push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, settings)
+    push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, screenWidth, screenHeight, settings)
 
     gStateMachine = StateMachine {
         ['play'] = function()
@@ -105,6 +110,9 @@ end
 
 function love.draw()
     push:start()
+
+    love.graphics.setColor(255 / 255, 0.4, 1, 255 / 255)
+    love.graphics.rectangle('fill', 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT)
 
     love.graphics.setColor(255 / 255, 255 / 255, 255 / 255, 255 / 255)
     gStateMachine:render()
